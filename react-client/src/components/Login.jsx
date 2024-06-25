@@ -1,31 +1,34 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import classes from "./Login.module.css";
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ onLogin }) {
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const username = useRef("");
+  const password = useRef("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/users");
+      if (!response.ok) {
+        setError(
+          `An HTTP ${response.status} error occurred. Please try again.`
+        );
+      }
       const users = await response.json();
       const user = users.find(
-        (user) => user.username === username && user.website === password
+        (user) =>
+          user.username === username.current.value &&
+          user.website === password.current.value
       );
-      console.log(user);
       if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-        console.log(`User ${user.name} logged in successfully`);
-        navigate("/home");
+        onLogin(user);
       } else {
         setError("Invalid username or password");
       }
-    } catch (error) {
-      setError("An error occurred. Please try again.");
+    } catch (err) {
+      setError("An error occurred in fetching users." + err.message);
     }
   };
 
@@ -34,21 +37,11 @@ function Login() {
       <form onSubmit={handleLogin} className={classes.form}>
         <div className={classes.formGroup}>
           <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" ref={username} required />
         </div>
         <div className={classes.formGroup}>
           <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" ref={password} required />
         </div>
         <button type="submit" className={classes.submitButton}>
           Login

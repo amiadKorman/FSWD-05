@@ -1,43 +1,26 @@
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #333;
-}
-
 .form {
   background-color: #444;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 600px;
   color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .formGroup {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
-.formGroup label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.formGroup input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #555;
-  color: #fff;
+.formGroup.fullWidth {
+  grid-column: span 2;
 }
 
 .submitButton {
+  grid-column: span 2;
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -49,4 +32,26 @@
 
 .submitButton:hover {
   background-color: #0056b3;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.loginLink {
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.loginButton {
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.loginButton:hover {
+  text-decoration: underline;
 }
