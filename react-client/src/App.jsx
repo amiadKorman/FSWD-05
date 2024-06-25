@@ -1,14 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import UserDetailsForm from './components/UserDetailsForm';
+import HomePage from './routes/HomePage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const isAuthenticated = () => {
+    return !!localStorage.getItem('user');
+  };
 
   return (
-    <>
-      <h1>Hey Nehorai!</h1>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/user-details" element={<UserDetailsForm />} />
+      <Route path="/home" element={isAuthenticated() ? <HomePage /> : <Navigate to="/login" />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
