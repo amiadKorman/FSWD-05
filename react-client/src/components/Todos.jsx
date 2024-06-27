@@ -12,10 +12,12 @@ const Todos = () => {
   const currentUserId = currentUser ? Number(currentUser.id) : null;
 
   useEffect(() => {
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => setTodos(data.filter(todo => Number(todo.userId) === currentUserId)))
-      .catch(error => console.error('Error fetching todos:', error));
+    if (currentUserId !== null) {
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => setTodos(data.filter(todo => Number(todo.userId) === currentUserId)))
+        .catch(error => console.error('Error fetching todos:', error));
+    }
   }, [currentUserId]);
 
   const addTodo = (title) => {
@@ -87,7 +89,8 @@ const Todos = () => {
 
   const searchResults = sortedTodos.filter(todo => {
     const query = searchQuery.toLowerCase();
-    return todo.title.toLowerCase().includes(query) || todo.id.toString().includes(query);
+    const title = todo.title ? todo.title.toLowerCase() : '';
+    return title.includes(query) || todo.id.toString().includes(query);
   });
 
   return (
