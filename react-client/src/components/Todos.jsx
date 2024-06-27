@@ -4,6 +4,7 @@ const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
   const [sortCriteria, setSortCriteria] = useState('serial');
+  const [searchQuery, setSearchQuery] = useState('');
   const apiUrl = 'http://localhost:3000/todos'; // Replace with your JSON server URL
 
   // Get the current user ID from localStorage
@@ -84,10 +85,21 @@ const Todos = () => {
     return 0;
   });
 
+  const searchResults = sortedTodos.filter(todo => {
+    const query = searchQuery.toLowerCase();
+    return todo.title.toLowerCase().includes(query) || todo.id.toString().includes(query);
+  });
+
   return (
     <div>
       <h1>Todos</h1>
       <div>
+        <input 
+          type="text" 
+          placeholder="Search by ID or title..." 
+          value={searchQuery} 
+          onChange={(e) => setSearchQuery(e.target.value)} 
+        />
         <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
           <option value="serial">Serial</option>
           <option value="alphabetical">Alphabetical</option>
@@ -102,7 +114,7 @@ const Todos = () => {
         </select>
       </div>
       <ul>
-        {sortedTodos.map((todo, index) => (
+        {searchResults.map((todo, index) => (
           <li key={todo.id}>
             <input
               type="checkbox"
