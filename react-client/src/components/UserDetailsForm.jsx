@@ -132,10 +132,14 @@ function UserDetailsForm({ onRegister }) {
         </button>
         {error && <p className={classes.errorMessage}>{error}</p>}
         <div className={classes.loginLink}>
-          <span>Already have an account?</span>
-          <br />
+          <span>Return to </span>
           <Link to="/login" className={classes.loginButton}>
             Login
+          </Link>
+          <br />
+          <span>or </span>
+          <Link to="/register" className={classes.registerButton}>
+            Register
           </Link>
         </div>
       </form>
