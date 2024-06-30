@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, Link } from "react-router-dom";
 import classes from "./UserDetailsForm.module.css";
 
 function UserDetailsForm({ onRegister }) {

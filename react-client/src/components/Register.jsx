@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import classes from "./Register.module.css";
+import classes from "./Login.module.css";
 
 function Register() {
   const usernameRef = useRef("");
