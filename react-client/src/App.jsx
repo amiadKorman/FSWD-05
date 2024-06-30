@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./components/Login";
-import Register from "./components/Register";
-import UserDetailsForm from "./components/UserDetailsForm";
-import Todos from "./components/Todos"; // Import the Todos component
-import Posts from "./components/Posts"; // Import the Posts component
-import Albums from "./components/Albums"; // Import the Albums component
-import Header from "./components/Header"; // Import the Header component
+import Todos from "./components/Todos";
+import Posts from "./components/Posts";
+import Albums from "./components/Albums";
+import Header from "./components/Header";
 import Info from "./components/Info";
+import NotFound from "./components/NotFound";
+import RegistrationPage from "./routes/RegisterationPage";
+import HomePage from "./routes/HomePage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -30,15 +31,15 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />} />
       <Route path="/login" element={<Login onLogin={handleLogin} />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/register/details" element={<UserDetailsForm onRegister={handleLogin} />} />
-      <Route path="/home" element={isAuthenticated ? <Header onLogout={handleLogout}><div>Home Page</div></Header> : <Navigate to="/login" />} />
+      <Route path="/register/*" element={<RegistrationPage onRegister={handleLogin} />} />
+      <Route path="/home" element={isAuthenticated ? <Header onLogout={handleLogout}><HomePage /></Header> : <Navigate to="/login" />} />
       <Route path="/todos" element={isAuthenticated ? <Header onLogout={handleLogout}><Todos /></Header> : <Navigate to="/login" />} />
       <Route path="/info" element={isAuthenticated ? <Header onLogout={handleLogout}><Info /></Header> : <Navigate to="/login" />} />
       <Route path="/posts" element={isAuthenticated ? <Header onLogout={handleLogout}><Posts /></Header> : <Navigate to="/login" />} />
       <Route path="/albums" element={isAuthenticated ? <Header onLogout={handleLogout}><Albums /></Header> : <Navigate to="/login" />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
