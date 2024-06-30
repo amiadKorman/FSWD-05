@@ -148,6 +148,7 @@ const Albums = () => {
   return (
     <div>
       <h1>Albums</h1>
+      <button onClick={() => addAlbum(prompt('New album title'))}>Add Album</button>
       <div>
         <input 
           type="text" 
@@ -170,7 +171,6 @@ const Albums = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => addAlbum(prompt('New album title'))}>Add Album</button>
       {selectedAlbumId && (
         <div>
           <h2>Photos in Album</h2>

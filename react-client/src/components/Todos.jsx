@@ -96,6 +96,7 @@ const Todos = () => {
   return (
     <div>
       <h1>Todos</h1>
+      <button onClick={() => addTodo(prompt('New todo'))}>Add Todo</button>
       <div>
         <input 
           type="text" 
@@ -132,7 +133,6 @@ const Todos = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => addTodo(prompt('New todo'))}>Add Todo</button>
     </div>
   );
 };

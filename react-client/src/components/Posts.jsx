@@ -129,6 +129,7 @@ const Posts = () => {
   return (
     <div>
       <h1>Posts</h1>
+      <button onClick={() => addPost(prompt('New post title'), prompt('New post content'))}>Add Post</button>
       <div>
         <input 
           type="text" 
@@ -191,7 +192,6 @@ const Posts = () => {
           </ul>
         </div>
       )}
-      <button onClick={() => addPost(prompt('New post title'), prompt('New post content'))}>Add Post</button>
     </div>
   );
 };
