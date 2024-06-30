@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Todos from "../components/Todos";
 import Posts from "../components/Posts";
 import Albums from "../components/Albums";
-import Header from "../components/Header";
 import Info from "../components/Info";
 import HomePage from "../components/HomePage";
 

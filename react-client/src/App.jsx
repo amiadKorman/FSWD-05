@@ -29,10 +29,36 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={isAuthenticated ? <Navigate to={`/user/${currentUserId}/home`} /> : <Navigate to="/login" />} />
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? (
+            <Navigate to={`/user/${currentUserId}/home`} />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
       <Route path="/login" element={<Login onLogin={handleLogin} />} />
-      <Route path="/register/*" element={<RegistrationPage onRegister={handleLogin} />} />
-      <Route path="/user/:userId/*" element={isAuthenticated ? <Header onLogout={handleLogout}><UserPages onLogout={handleLogout} isAuthenticated={isAuthenticated} /></Header> : <Navigate to="/login" />} />
+      <Route
+        path="/register/*"
+        element={<RegistrationPage onRegister={handleLogin} />}
+      />
+      <Route
+        path="/user/:userId/*"
+        element={
+          isAuthenticated ? (
+            <Header onLogout={handleLogout}>
+              <UserPages
+                onLogout={handleLogout}
+                isAuthenticated={isAuthenticated}
+              />
+            </Header>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

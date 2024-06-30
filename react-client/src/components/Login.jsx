@@ -12,7 +12,9 @@ function Login({ onLogin }) {
     try {
       const response = await fetch("http://localhost:3000/users");
       if (!response.ok) {
-        throw new Error(`An HTTP ${response.status} error occurred. Please try again.`);
+        throw new Error(
+          `An HTTP ${response.status} error occurred. Please try again.`
+        );
       }
       const users = await response.json();
       const user = users.find(
@@ -23,7 +25,7 @@ function Login({ onLogin }) {
       if (user) {
         onLogin(user);
       } else {
-        setError("Invalid username or password");
+        throw new Error("Invalid username or password");
       }
     } catch (err) {
       setError("An error occurred in fetching users." + err.message);

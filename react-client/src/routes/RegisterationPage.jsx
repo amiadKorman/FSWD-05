@@ -5,8 +5,11 @@ import UserDetailsForm from "../components/UserDetailsForm";
 function RegistrationPage({ onRegister }) {
   return (
     <Routes>
-      <Route index  element={<Register />} />
-      <Route path="/details" element={<UserDetailsForm onRegister={onRegister} />} />
+      <Route index element={<Register />} />
+      <Route
+        path="/details"
+        element={<UserDetailsForm onRegister={onRegister} />}
+      />
     </Routes>
   );
 }
