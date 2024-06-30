@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Info.module.css";
+import classes from "../css/Info.module.css";
 
 function Info() {
   const user = JSON.parse(localStorage.getItem("user"));

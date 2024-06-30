@@ -1,9 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
+import classes from "../css/Header.module.css";
 
 function Header({ onLogout, children }) {
-  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user.id : '';
 

@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "../components/Header";
-import classes from "./HomePage.module.css";
+import classes from "../css/HomePage.module.css";
 
 function HomePage() {
   return (

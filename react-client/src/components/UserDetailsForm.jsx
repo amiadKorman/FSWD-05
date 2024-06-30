@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { useLocation, Navigate, Link } from "react-router-dom";
-import classes from "./UserDetailsForm.module.css";
+import { useLocation, Link } from "react-router-dom";
+import classes from "../css/UserDetailsForm.module.css";
 
 function UserDetailsForm({ onRegister }) {
   //id
