@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import UserDetailsForm from "./components/UserDetailsForm";
 import Todos from "./components/Todos"; // Import the Todos component
+import Posts from "./components/Posts"; // Import the Posts component
 import Header from "./components/Header"; // Import the Header component
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Route path="/register/details" element={<UserDetailsForm onRegister={handleLogin} />} />
       <Route path="/home" element={isAuthenticated ? <Header onLogout={handleLogout}><div>Home Page</div></Header> : <Navigate to="/login" />} />
       <Route path="/todos" element={isAuthenticated ? <Header onLogout={handleLogout}><Todos /></Header> : <Navigate to="/login" />} />
+      <Route path="/posts" element={isAuthenticated ? <Header onLogout={handleLogout}><Posts /></Header> : <Navigate to="/login" />} />
     </Routes>
   );
 }
