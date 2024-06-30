@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 import RegistrationPage from "./routes/RegisterationPage";
 import UserPages from "./routes/UserPages";
+import Header from "./components/Header";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -31,7 +32,7 @@ function App() {
       <Route path="/" element={isAuthenticated ? <Navigate to={`/user/${currentUserId}/home`} /> : <Navigate to="/login" />} />
       <Route path="/login" element={<Login onLogin={handleLogin} />} />
       <Route path="/register/*" element={<RegistrationPage onRegister={handleLogin} />} />
-      <Route path="/user/:userId/*" element={<UserPages onLogout={handleLogout} isAuthenticated={isAuthenticated} />} />
+      <Route path="/user/:userId/*" element={isAuthenticated ? <Header onLogout={handleLogout}><UserPages onLogout={handleLogout} isAuthenticated={isAuthenticated} /></Header> : <Navigate to="/login" />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
