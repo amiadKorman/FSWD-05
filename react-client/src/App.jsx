@@ -7,6 +7,7 @@ import Todos from "./components/Todos"; // Import the Todos component
 import Posts from "./components/Posts"; // Import the Posts component
 import Albums from "./components/Albums"; // Import the Albums component
 import Header from "./components/Header"; // Import the Header component
+import Info from "./components/Info";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -35,6 +36,7 @@ function App() {
       <Route path="/register/details" element={<UserDetailsForm onRegister={handleLogin} />} />
       <Route path="/home" element={isAuthenticated ? <Header onLogout={handleLogout}><div>Home Page</div></Header> : <Navigate to="/login" />} />
       <Route path="/todos" element={isAuthenticated ? <Header onLogout={handleLogout}><Todos /></Header> : <Navigate to="/login" />} />
+      <Route path="/info" element={isAuthenticated ? <Header onLogout={handleLogout}><Info /></Header> : <Navigate to="/login" />} />
       <Route path="/posts" element={isAuthenticated ? <Header onLogout={handleLogout}><Posts /></Header> : <Navigate to="/login" />} />
       <Route path="/albums" element={isAuthenticated ? <Header onLogout={handleLogout}><Albums /></Header> : <Navigate to="/login" />} />
     </Routes>
