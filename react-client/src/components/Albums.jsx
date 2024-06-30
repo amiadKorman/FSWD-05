@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
@@ -9,6 +10,8 @@ const Albums = () => {
   const photosPerPage = 5;
   const albumsApiUrl = 'http://localhost:3000/albums'; // Replace with your JSON server URL
   const photosApiUrl = 'http://localhost:3000/photos'; // Replace with your JSON server URL for photos
+  const navigate = useNavigate();
+  const { userId, albumId } = useParams();
 
   // Get the current user ID from localStorage
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -22,6 +25,13 @@ const Albums = () => {
         .catch(error => console.error('Error fetching albums:', error));
     }
   }, [currentUserId]);
+
+  useEffect(() => {
+    if (albumId) {
+      fetchPhotos(albumId, 1);
+      setSelectedAlbumId(albumId);
+    }
+  }, [albumId]);
 
   const fetchPhotos = (albumId, page = 1) => {
     fetch(`${photosApiUrl}?albumId=${albumId}&_page=${page}&_limit=${photosPerPage}`)
@@ -43,9 +53,7 @@ const Albums = () => {
   };
 
   const handleViewPhotos = (albumId) => {
-    setSelectedAlbumId(albumId);
-    setCurrentPhotoPage(1);
-    fetchPhotos(albumId, 1);
+    navigate(`/user/${userId}/album/${albumId}/photos`);
   };
 
   const addAlbum = (title) => {
@@ -161,6 +169,9 @@ const Albums = () => {
         {searchResults.map((album, index) => (
           <li key={album.id}>
             {index + 1}. ID: {album.id}, Title: {album.title}
+            <button onClick={() => navigate(`/user/${userId}/album/${album.id}`)}>
+              Select
+            </button>
             <button onClick={() => handleViewPhotos(album.id)}>
               View Photos
             </button>

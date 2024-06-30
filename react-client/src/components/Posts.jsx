@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -8,6 +9,8 @@ const Posts = () => {
   const [comments, setComments] = useState([]);
   const apiUrl = 'http://localhost:3000/posts'; // Replace with your JSON server URL
   const commentsApiUrl = 'http://localhost:3000/comments'; // Replace with your JSON server URL for comments
+  const navigate = useNavigate();
+  const { userId, postId } = useParams();
 
   // Get the current user ID from localStorage
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -21,6 +24,17 @@ const Posts = () => {
         .catch(error => console.error('Error fetching posts:', error));
     }
   }, [currentUserId]);
+
+  useEffect(() => {
+    if (postId) {
+      const post = posts.find(p => p.id === Number(postId));
+      if (post) {
+        setSelectedPostId(post.id);
+        setSelectedPostContent(post.body);
+        fetchComments(post.id);
+      }
+    }
+  }, [postId, posts]);
 
   const addPost = (title, content) => {
     const newPost = {
@@ -126,6 +140,17 @@ const Posts = () => {
     return post.title.toLowerCase().includes(query) || post.id.toString().includes(query);
   });
 
+  const handlePostSelect = (post) => {
+    setSelectedPostId(post.id);
+    setSelectedPostContent(post.body);
+    navigate(`/user/${userId}/posts/${post.id}`);
+  };
+
+  const handleCommentView = (postId) => {
+    fetchComments(postId);
+    navigate(`/user/${userId}/posts/${postId}/comment`);
+  };
+
   return (
     <div>
       <h1>Posts</h1>
@@ -142,10 +167,7 @@ const Posts = () => {
         {searchResults.map((post, index) => (
           <li key={post.id} style={{ fontWeight: post.id === selectedPostId ? 'bold' : 'normal' }}>
             {index + 1}. ID: {post.id}, Title: {post.title}
-            <button onClick={() => {
-              setSelectedPostId(post.id);
-              setSelectedPostContent(post.body);
-            }}>
+            <button onClick={() => handlePostSelect(post)}>
               Select
             </button>
             <button onClick={() => deletePost(post.id)}>Delete</button>
@@ -153,7 +175,7 @@ const Posts = () => {
               Edit
             </button>
             {post.id === selectedPostId && (
-              <button onClick={() => fetchComments(post.id)}>
+              <button onClick={() => handleCommentView(post.id)}>
                 Show Comments
               </button>
             )}

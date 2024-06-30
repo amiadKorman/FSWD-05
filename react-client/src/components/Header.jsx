@@ -5,6 +5,7 @@ import classes from "./Header.module.css";
 function Header({ onLogout, children }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user ? user.id : '';
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -16,11 +17,11 @@ function Header({ onLogout, children }) {
       <header className={classes.header}>
         <h1>Welcome, {user?.name}</h1>
         <nav className={classes.nav}>
-          <Link to="/home">Home</Link>
-          <Link to="/info">Info</Link>
-          <Link to="/todos">Todos</Link>
-          <Link to="/posts">Posts</Link>
-          <Link to="/albums">Albums</Link>
+          <Link to={`/user/${userId}/home`}>Home</Link>
+          <Link to={`/user/${userId}/info`}>Info</Link>
+          <Link to={`/user/${userId}/todos`}>Todos</Link>
+          <Link to={`/user/${userId}/posts`}>Posts</Link>
+          <Link to={`/user/${userId}/albums`}>Albums</Link>
           <button onClick={handleLogout} className={classes.logoutButton}>
             Logout
           </button>
