@@ -12,9 +12,7 @@ function Login({ onLogin }) {
     try {
       const response = await fetch("http://localhost:3000/users");
       if (!response.ok) {
-        setError(
-          `An HTTP ${response.status} error occurred. Please try again.`
-        );
+        throw new Error(`An HTTP ${response.status} error occurred. Please try again.`);
       }
       const users = await response.json();
       const user = users.find(
