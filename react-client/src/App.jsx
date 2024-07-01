@@ -49,10 +49,7 @@ function App() {
         element={
           isAuthenticated ? (
             <Header onLogout={handleLogout}>
-              <UserPages
-                onLogout={handleLogout}
-                isAuthenticated={isAuthenticated}
-              />
+              <UserPages />
             </Header>
           ) : (
             <Navigate to="/login" />
